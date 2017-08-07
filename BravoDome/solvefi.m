@@ -47,10 +47,9 @@ function [state, convergence] = solvefi(state0, dt, bc, system, equation, param,
       % 
       
       [C, p] = deal(state.C, state.pressure);
-      nc = numel(p);
       init_sL = state.sL;
       Cvec = cell2mat(C);
-      [cg, cl, cw, s, Cw] = flash_calculation(Cvec, p, system, init_sL);
+      [~, ~, ~, s, ~] = flash_calculation(Cvec, p, system, init_sL);
       state.sL = s(:, 2);
       
       %%

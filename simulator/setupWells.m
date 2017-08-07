@@ -1,6 +1,6 @@
 function W = setupWells(G,rock)
 
-nperf = 8;
+nperf = 3;
 %----producer -----
 prod_coord = [2,2];
 I_p = repmat(prod_coord(1), [nperf, 1]);

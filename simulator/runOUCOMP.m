@@ -16,7 +16,7 @@ param.outflux_p = 4e6; %production pressure
 
 %Reservoir initial conditions
 param.Temp = 30 + 273.15; % Temperature (in Kelvin)
-param.z_initial = [50, 50]/100;  % initial Molar Fraction (CH4,C8H18)
+param.z_initial = [50, 25,25]/100;  % initial Molar Fraction (CH4,C8H18)
 param.sw_initial = 0.25;
 param.so_initial = 0.5;
 param.sg_initial = 0.25;
@@ -31,7 +31,7 @@ param.maxIterations = 50;
 
 %% 
 % create variable |G| and |rock|
-[nx,ny,nz] = deal( 10, 10, 10);
+[nx,ny,nz] = deal( 9, 9, 4);
 [Lx,Ly,Lz] = deal(200, 200, 50);
 G = cartGrid([nx, ny, nz], [Lx, Ly, Lz ]);
 G = computeGeometry(G);
@@ -40,7 +40,7 @@ rock = makeRock(G, 30*milli*darcy, 0.3);
 
 %%
 % Set up fluids
-components_formula = {'CH4','C10H22'}; %main component except for water
+components_formula = {'CH4','C4H10','C10H22'}; %main component except for water
 fluid = setupFluids(components_formula);
 
 %%

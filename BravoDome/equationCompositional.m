@@ -71,7 +71,7 @@ function eqs = equationCompositional(state0, state, dt, bc, system, varargin)
     % Set up the gravity term. The molar mass are needed.
     %
     
-    g  = norm(gravity);
+    g  = 9.8;
     dz = s.dz;
     mmW   = f.mmW; % f.mmW returns molar mass for water.
     mmC   = f.mmC; % f.mmC returns a vector of molar mass for each component.
