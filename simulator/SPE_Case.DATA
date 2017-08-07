@@ -1,0 +1,208 @@
+-- Generated [
+-- Format      : ECLIPSE keywords (ASCII)
+-- Exported by : Petrel 2016.1 (64-bit) Schlumberger
+-- User name   : reza6615
+-- Date        : Monday, July 17 2017 13:37:59
+-- Project     : SPE3.pet
+-- Generated ]
+
+-----------------------------------------------------------------------
+-- SPE 12278
+-- "Third SPE Comparative Solution Project : Gas Cycling of Retrograde Condensate Reservoir"
+-- Douglas E. Kenyon, G. Alda Behhie
+-----------------------------------------------------------------------
+-->SPE third comparative problem
+-- 9 components
+-- Peng-Robinson EoS with correction
+-- Grid dimensions 9x9x4
+-- AIM solution method
+-- FIELD units
+-- 3-stage separator
+-- GRUPSALE and gas reinjection of remaining gas
+--
+-- Modified version of CASE1 for asphaltene prediction:
+--    Heaviest hydrocarbon has been identified as an aromatic
+--    BICs have not been changed
+--    Solid saturation is used to flag asphaltene presence
+--
+-- Last modified May 2003
+--
+------------------------------------------------------------------------
+
+--RUNSPEC section--------------------------------------------------
+
+
+
+
+
+RUNSPEC
+
+COMPS                                  -- Generated : Petrel
+  9 /
+
+TITLE                                  -- Generated : Petrel
+'SPE3_FULLIMP_TUN3'
+
+WELLDIMS                               -- Generated : Petrel
+  1* 2 8* 3 /
+
+START                                  -- Generated : Petrel
+  1 JAN 1990 /
+
+WATER                                  -- Generated : Petrel
+
+PETOPTS                                -- Generated : Petrel
+INITNNC /
+
+FULLIMP
+
+MONITOR                                -- Generated : Petrel
+
+MULTOUT                                -- Generated : Petrel
+
+FIELD                                  -- Generated : Petrel
+
+DIMENS                                 -- Generated : Petrel
+  9 9 4 /
+
+TABDIMS                                -- Generated : Petrel
+  12* 1 /
+
+ISGAS
+
+MULTSAVE
+0 /
+
+MULTIPHA
+
+GRID
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_GRID.INC' /
+
+NOECHO                                 -- Generated : Petrel
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_GRID.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_PERMX.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_PERMY.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_PERMZ.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_PORO.GRDECL' /
+
+ECHO                                   -- Generated : Petrel
+
+EDIT
+
+PROPS
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROPS.INC' /
+
+REGIONS
+
+NOECHO                                 -- Generated : Petrel
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_SATNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_ROCKNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_EOSNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_PVTNUM.GRDECL' /
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_PROP_EQLNUM.GRDECL' /
+
+ECHO                                   -- Generated : Petrel
+
+SOLUTION
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_SOL.INC' /
+
+SUMMARY
+
+ALL
+
+RUNSUM
+
+FOPR
+
+FOPT
+
+FGOR
+
+FPR
+
+WXMF
+P 1 /
+/
+
+WXMF
+P 2 /
+/
+
+WXMF
+P 3 /
+/
+
+WXMF
+P 4 /
+/
+
+BVOIL
+7 7 4 /
+/
+
+BSOIL
+7 7 4 /
+/
+
+BSWAT
+7 7 4 /
+/
+
+BSGAS
+7 7 4 /
+/
+
+BPRES
+1 1 1 /
+/
+
+BXMF
+1 1 1 6 /
+/
+
+BYMF
+1 1 1 6 /
+/
+
+BSSOLID
+7 7 1 /
+/
+
+BPRES
+7 7 1 /
+/
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_SUM.INC' /
+
+SCHEDULE
+
+INCLUDE                                -- Generated : Petrel
+'SPE3_FULLIMP_TUN3_SCH.INC' /
+
