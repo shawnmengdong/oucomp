@@ -1,17 +1,15 @@
 % test case
 % liquid-vapor phase equilibia calculation
 % Define the components and load pure physsical properties
-z=[0.2,0.4,0.4];
-z=mynormalize(z);
-[component, comp_flag] = addComponents({'CO2','CH4','C8H18','H2O'});
+z=[.01210 .01940 .65990 .08690 .05910 .09670 .04745 .01515 .00330];
 % Define the thermodynamic models
 T= 300; % [K]  temperature
 p= 10e5; % [Pa] pressure
 thermo = addThermo();
 thermo.EOS = @PREOS; 
-mixture = addMixture(component, T, p);
+mixture = addMixture();
 mixture.mole_fraction = z;
-mixutre.pressure = p;
+mixture.pressure = p;
 mixture.temperature = T;
 % Define flash options
 options.convergence_eps = 1e-12;   %convergence tolerance for fugacity

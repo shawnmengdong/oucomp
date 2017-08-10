@@ -12,15 +12,15 @@ mrstModule add ad-fi
 
 %%
 % Production parameters. 
-param.outflux_p = 4e6; %production pressure
+param.outflux_p = 3e6; %production pressure
 
 %Reservoir initial conditions
 param.Temp = 30 + 273.15; % Temperature (in Kelvin)
-param.z_initial = [50, 25,25]/100;  % initial Molar Fraction (CH4,C8H18)
+param.z_initial = [50,25,25]/100;  % initial Molar Fraction (CH4,C8H18)
 param.sw_initial = 0.25;
 param.so_initial = 0.5;
 param.sg_initial = 0.25;
-param.p_initial = 10e6;  %initial reservoir pressure
+param.p_initial = 5e6;  %initial reservoir pressure
 
 % Time-step parameters
 param.dt = 200*day;             % Time step

@@ -9,7 +9,7 @@ function state = inistate(system)
    nc = G.cells.num;
    Temp = param.Temp*ones(nc,1);
    pressure = ones(nc,1)*ini_pressure;
-   z = cell(nComp, 1);
+   z = cell(1,nComp);
    
    for ic = 1 : nComp
       z{ic} = param.z_initial(ic)*ones(nc, 1);                 
