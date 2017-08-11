@@ -17,5 +17,5 @@ options.trivial_eps = 1e-3;     %trivial shift for bisection algorithm
 options.RRiteration = 200;   %maximum number of Rachford Rice iteration using Newton's method
 options.max_outer_loop = 1000;   %max number of fugacity updates
 % flash for surface properties
-[success_flag,stability_flag,vapor_y,liquid_x,vapor_frac,cubic_time]=GI_flash(mixture,thermo,options);
+[success_flag,stability_flag,vapor_y_o,liquid_x_o,vapor_frac,zc,phase_index,cubic_time,b]=GI_flash(mixture,thermo,options);
 

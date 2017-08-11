@@ -1,4 +1,4 @@
-function [success_flag,vapor_y,liquid_x,vapor_frac,zc,cubic_time]=vle2fash(mixture,thermo,options)
+function [success_flag,vapor_y,liquid_x,vapor_frac,zc,cubic_time,b]=vle2fash(mixture,thermo,options)
     eps1 = options.convergence_eps;
     eps2= options.trivial_eps;
     max_itr_RR = options.RRiteration;
@@ -84,5 +84,6 @@ function [success_flag,vapor_y,liquid_x,vapor_frac,zc,cubic_time]=vle2fash(mixtu
          ki = ki.*liq_fug./vap_fug;
          cubic_time = cubic_time + 2;
     end
+    [~,~,~,b] = thermo.EOS(mixture,thermo);
 
 end

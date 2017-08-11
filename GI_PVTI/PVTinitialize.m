@@ -3,8 +3,6 @@ function  PVTinitialize()
 
 
  current_path = fileparts(mfilename('fullpath'));
-
- addpath([current_path '/PureData']);
  addpath([current_path '/Tools']);
  addpath([current_path '/EOS']);
  addpath([current_path '/Flash']);

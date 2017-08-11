@@ -5,14 +5,16 @@ function [liquid_x,vapor_y,liquid_frac,molar_density,rho,phase_flag] = flash_cal
  nComp = system.nComp;  %number of components
  nc = size(pressure,1); %number of cells
  R = 8.314;
- mmC = system.fluid.mmC; %molar mass of components
  num_phase = 2;
+ 
  %initialize outputs
  liquid_x = zeros(nc,nComp); %molar fraction in liquid phase
  vapor_y = zeros(nc,nComp); %molar fraction in vapor phase
  molar_density = zeros(nc,num_phase); %in mol/m3  
  liquid_frac = zeros(nc,1); %liquid molar fraction
  rho = zeros(nc,num_phase);  %in kg/m3
+ 
+ 
  
  
  %Assemble total flash matrix
@@ -34,7 +36,7 @@ function [liquid_x,vapor_y,liquid_frac,molar_density,rho,phase_flag] = flash_cal
      mixture.pressure = unique_flash_matrix(i,1);
      mixture.temperature = unique_flash_matrix(i,2);
      mixture.mole_fraction = unique_flash_matrix(i,3:end);
-     [success_flag,~,y,x,vapor_frac,zc,phase_flag,~]=GI_flash(mixture,system.thermo,system.flashopt);
+     [success_flag,~,y,x,vapor_frac,zc,phase_flag,~,b]=GI_flash(mixture,system.thermo,system.flashopt);
      if success_flag ~=1 
          error('Flash Failed, please debug your flash');
      end
@@ -45,9 +47,13 @@ function [liquid_x,vapor_y,liquid_frac,molar_density,rho,phase_flag] = flash_cal
     liquid_x(prev_index,:) = repmat(x,prev_size,1); 
     vapor_y(prev_index,:) = repmat(y,prev_size,1);
     liquid_frac(prev_index) = 1-vapor_frac; %liquid molar fraction
-    molar_rho = pressure(i)/R/Temp(i)./zc; %for single configuration, in mol/m3
-    molar_density(prev_index,:) = repmat(molar_rho,prev_size,1);
-    rho(prev_index,:) = repmat(mmC*[x',y'].*molar_rho,prev_size,1);  %in kg/m3
+    
+    
+    mv = zc*R*Temp(i)/pressure(i); %for single configuration molar volume, in m3/mol
+    mv(1) = mv(1) - b*[mixture.components.VSE]*x';  %volume shift for liquid
+
+    molar_density(prev_index,:) = repmat(1./mv,prev_size,1);
+    rho(prev_index,:) = repmat([mixture.components.MW]*[x',y']./mv,prev_size,1);  %in kg/m3
  end
 
 end

@@ -1,4 +1,4 @@
-function [fugacity_coef,success_flag,zz] = PREOS(mixture, thermo)
+function [fugacity_coef,success_flag,zz,b] = PREOS(mixture, thermo)
 % T and critical temperature in [K]
 % P and critical pressure in [bar]
 % HR in [J/mol]
@@ -13,11 +13,14 @@ BIP = mixture.bip;
 x = mixture.mole_fraction;
 p = mixture.pressure; %[Pa]
 T = mixture.temperature;
+OMEGAA = [mixture.components.OMEGAA];
+OMEGAB = [mixture.components.OMEGAB];
+
 
 R=8.314;
 
-bi = 0.077796*R*critical_temp./critical_pres;
-aci=0.457235*(R*critical_temp).^2 ./critical_pres;
+bi = OMEGAB.*R.*critical_temp./critical_pres;
+aci=OMEGAA.*(R.*critical_temp).^2 ./critical_pres;
 mi = 0.37646+(1.54226-0.26992*acentric_fact).*acentric_fact;
 Tr = T./critical_temp;
 alfai = 1+mi.*(1-sqrt(Tr));   %//alfai=ai^0.5
@@ -27,7 +30,7 @@ ai = aci .* alfa;
 [a,b] = simple_mixing_rule(mixture, thermo, ai, bi);
 A_coef=a*p/(R*T)^2;
 B_coef=b*p/(R*T);
-poly_coef = [1 -1+B_coef A_coef-B_coef*(2.0+3*B_coef) -B_coef*(A_coef-B_coef*(1+B_coef))];
+poly_coef = [1 -1+B_coef A_coef-B_coef*(2+3*B_coef) -B_coef*(A_coef-B_coef*(1+B_coef))];
 z_root = roots(poly_coef);
 %---------------------------------------------------------------------
 %root selection
