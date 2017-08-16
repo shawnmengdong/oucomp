@@ -15,4 +15,4 @@ rock = setupRock(G);
 param = setupParam();
 
 %Define Wells
-W = setupWells();
+W = setupWells(G,rock);

@@ -24,55 +24,6 @@ PARACHOR
      78.00000     41.00000     77.00000    108.00000    150.30000
     213.52089    331.78241    516.45301    853.48860              /
 
---Define injection and production wells
-
-WELSPECS
-I FIELD 1 1 7330 GAS/
-P FIELD 7 7 7400 GAS/
-/
-
-COMPDAT
-I 1 1 1 2 1* 1 /
-P 7 7 3 4 1* 1 /
-/
-
---Well P set to target gas rate of 6200, with min bhp of 500 psi
-
---2000a WELLPROD is for back-compatibility, prefered keyword is WCONPROD
---WELLPROD
---P GA 1* 1* 6200 1* 500 /
-WCONPROD
-P OPEN GRAT 1* 1* 6200 1* /
-/
-WELTARG
-P BHP 500 /
-/
-
---Sales gas rate of 1500 MSCF/Day specified
-
-GRUPSALE
-Field 1500 /
-/
-
---Well I injects all unsold vapour
-
---2000a WELLINJE is for back-compatibility, prefered keyword is WCONINJE
---for reinjection, use GCONINJE
---WELLINJE
---I GV Field REINJE 3* 4000 3* 1 /
-
-GCONINJE
-Field GAS REIN 2* 1 /
-/
-GINJGAS
-Field GV Field /
-/
-
-WCONINJE
-I GAS OPEN GRUP 2* 4000 /
-/
-
---Set 15 day initial time step
 
 --Time steps to 9 years
 TSTEP

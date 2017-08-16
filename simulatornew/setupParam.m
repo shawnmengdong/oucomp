@@ -24,7 +24,12 @@ sep(3).Temp = (60+459.67)*Rankine;
 sep(3).p = 14.7*psia;
 param.sep = sep;
 
-%
+%Time step
+param.dt = 36.5*day;             % Time step
+param.total_time = 3650*day;  % Total time
+
+% Parameters for the non-linear solver
+param.maxIterations = 50;
 
 
 end
