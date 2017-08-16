@@ -8,10 +8,10 @@ component = struct([]);
 CNAMES = {'CO2','N2', 'C1', 'C2', 'C3', 'C4-6', 'C7+1', 'C7+2', 'C7+3'};
 
 %Critical temperatures for each component in K
-Tc=5/9*[548.46000 227.16000 343.08000 549.77400 665.64000 806.54054 838.11282 1058.03863 1291.89071]; %R to K
+Tc=[548.46000 227.16000 343.08000 549.77400 665.64000 806.54054 838.11282 1058.03863 1291.89071]*Rankine; %R to K
 
 %Critical pressure for each component in Pa
-Pc =6894.76*[1071.33111 492.31265    667.78170    708.34238    618.69739 514.92549 410.74956 247.56341 160.41589];
+Pc =[1071.33111 492.31265    667.78170    708.34238    618.69739 514.92549 410.74956 247.56341 160.41589]*psia;
 
 %Critical Compressibility factor
 Zc =[ .27408 .29115 .28473 .28463 .27748 .27640 .26120 .22706 .20137];
@@ -80,8 +80,8 @@ SWFN =[ 0.16  0      50;
         0.88  0.710  0.3;
         0.92  0.800  0.2;
         0.96  0.900  0.1;
-        1.00  1.000  0.0]
-SWFN(:,3) = SWFN(:,3)*6894.76;  %Convert psia to pa
+        1.00  1.000  0.0];
+SWFN(:,3) = SWFN(:,3)*psia;  %Convert psia to pa
 
 %Gas Saturation Functions Table,  Sg ---Krg---Pcog=Pg-Po (Psia)
 SGFN = [0.00  0.000  0.0;
@@ -106,7 +106,7 @@ SGFN = [0.00  0.000  0.0;
         0.76  0.620  1.9;
         0.80  0.680  2.0;
         0.84  0.740  2.1];
-SGFN(:,3) = SGFN(:,3)*6894.76;  %Convert psia to pa
+SGFN(:,3) = SGFN(:,3)*psia;  %Convert psia to pa
 
 %Oil Saturation Functions Table,  So ---Kro(only oil and water)---Kro(gas
 %oil and water)
@@ -131,6 +131,23 @@ SOF3 = [0.00  0.000  0.000;
         0.76  0.513  0.513;
         0.80  0.650  0.650;
         0.84  0.800  0.800];
+    
+    
+%function from table
+fluid.swfn = @(pcow) interp1(SWFN(:,3),SWFN(:,1),pcow,'pchip',0.16);
+fluid.krwfn = @(sw) interp1(SWFN(:,1),SWFN(:,2),sw);
+fluid.krgfn = @(sg) interp1(SGFN(:,1),SGFN(:,2),sg,'pchip',0.74);
+fluid.krofn = @(so) interp1(SOF3(:,1),SOF3(:,2),so,'pchip',0.8);
+
+
+%Water property
+fluid.w.pr = 3550*psia;  %reference pressure
+fluid.w.Bw = 1;  %formation volume factor at reference pressure
+fluid.w.cw = 0.000003/psia; %water compressibility
+fluid.w.mu = 0.31*centi*poise; %water viscosity at reference pressure
+fluid.w.rhosc = 63*pound/(ft^3); %water density at standard condition
+
+
 
 
 %Assemble fluid
@@ -139,6 +156,14 @@ fluid.bip.EOScons = BIP;   %EOS constant bip
 fluid.bip.EOStdep = zeros(N);
 fluid.nc = N;
 fluid.mole_fraction = z;
+
+%Thermo and options
+fluid.thermo = addThermo();
+fluid.thermo.EOS = @PREOS;
+fluid.thermo.options.convergence_eps = 1e-12;   %convergence tolerance for fugacity
+fluid.thermo.options.trivial_eps = 1e-3;     %trivial shift for bisection algorithm
+fluid.thermo.options.RRiteration = 200;   %maximum number of Rachford Rice iteration using Newton's method
+fluid.thermo.options.max_outer_loop = 1000;   %max number of fugacity updates
 
 
 

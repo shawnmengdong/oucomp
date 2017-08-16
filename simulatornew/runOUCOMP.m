@@ -3,5 +3,16 @@
 mrstModule add ad-fi
 
 %Define Fluid Section
-fluid = setupFluids();
+fluid = setupFluid();
 
+%Define Grid Section
+G = setupGrid();
+
+%Define Rock Section
+rock = setupRock(G);
+
+%Other Parameters
+param = setupParam();
+
+%Define Wells
+W = setupWells();
