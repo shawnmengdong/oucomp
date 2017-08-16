@@ -1,10 +1,4 @@
-% The main state variables are :
-% * the total molar fraction for each component(|state.z|)
-% * the water satruation (|state.sw|)
-% * the pressure (|state.p|),
-% * the total molar density(|state.F|)
-% There are in total of Nc+3 variables and equations
-%
+
 %%
 % Load automatic differentiation module.
 run('OUCOMPInitialize.m'); %first add all paths

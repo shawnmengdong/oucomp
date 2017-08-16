@@ -2,6 +2,15 @@
 %
 function fluid = setupFluids(components_formula)
 
+
+
+
+
+
+
+
+
+
 % We consider a quadratic relative permeability curve
 fluid.relPerm = @(sL) quadraticRelPerm(sL);
 % Defining fluid molar mass
