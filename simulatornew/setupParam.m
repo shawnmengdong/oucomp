@@ -28,8 +28,6 @@ param.sep = sep;
 param.dt = 36.5*day;             % Time step
 param.total_time = 3650*day;  % Total time
 
-% Parameters for the non-linear solver
-param.maxIterations = 50;
 
 
 end

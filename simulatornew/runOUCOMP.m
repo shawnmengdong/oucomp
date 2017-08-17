@@ -16,3 +16,6 @@ param = setupParam();
 
 %Define Wells
 W = setupWells(G,rock);
+
+%Define system
+system = setupSystem(G,rock,param,fluid,W);
