@@ -19,3 +19,6 @@ W = setupWells(G,rock);
 
 %Define system
 system = setupSystem(G,rock,param,fluid,W);
+
+%Initialize first state
+state0 = inistate(system);

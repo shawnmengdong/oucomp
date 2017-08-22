@@ -1,7 +1,6 @@
 function fluid = setupFluid()
 
 fluid = struct();
-
 component = struct([]);
 
 %Component names
@@ -39,10 +38,6 @@ BIP = [0     0      0       0    0    0   0   0  0;
  
 %Volume Shift Parameter (Se) 
 SSHIFT = [0 0 0 0 0 0 0 0 0];
-
-
-%Fluid sample composition %Assumes constant
-z = [.0121 .0194 .65990 .08690 .05910 .09670 .04745 .01515 .00330];
 
 N = length(CNAMES);
 for n = 1:N
@@ -151,19 +146,18 @@ fluid.w.rhosc = 63*pound/(ft^3); %water density at standard condition
 
 
 %Assemble fluid
-fluid.components = component;
-fluid.bip.EOScons = BIP;   %EOS constant bip
-fluid.bip.EOStdep = zeros(N);
-fluid.nc = N;
-fluid.mole_fraction = z;
+fluid.mixture.components = component;
+fluid.mixture.bip.EOScons = BIP;   %EOS constant bip
+fluid.mixture.bip.EOStdep = zeros(N);
+fluid.Ncomp = N;
 
 %Thermo and options
 fluid.thermo = addThermo();
 fluid.thermo.EOS = @PREOS;
-fluid.thermo.options.convergence_eps = 1e-12;   %convergence tolerance for fugacity
-fluid.thermo.options.trivial_eps = 1e-3;     %trivial shift for bisection algorithm
-fluid.thermo.options.RRiteration = 200;   %maximum number of Rachford Rice iteration using Newton's method
-fluid.thermo.options.max_outer_loop = 1000;   %max number of fugacity updates
+fluid.thermo_opt.convergence_eps = 1e-12;   %convergence tolerance for fugacity
+fluid.thermo_opt.trivial_eps = 1e-3;     %trivial shift for bisection algorithm
+fluid.thermo_opt.RRiteration = 200;   %maximum number of Rachford Rice iteration using Newton's method
+fluid.thermo_opt.max_outer_loop = 1000;   %max number of fugacity updates
 
 
 

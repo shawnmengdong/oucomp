@@ -58,8 +58,8 @@ end
 
 function conc_f = faceConcentrations(flag, conc_c, N, intInx,nf, nc)
    index        = (1:nf)';
-   upCell       = N(:, 2);
-   upCell(flag) = N(flag, 1);
+   upCell       = N(:, 1);
+   upCell(flag) = N(flag, 2);
    % On the interior cell we use upwind
    M = sparse(index(intInx), upCell(intInx), 1, nf, nc);
    conc_f = M*conc_c;
