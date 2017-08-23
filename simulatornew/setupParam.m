@@ -1,6 +1,10 @@
 function param = setupParam()
 param = struct();
 
+%Fluid sample composition %Assumes constant
+param.mole_fraction = [.0121 .0194 .65990 .08690 .05910 .09670 .04745 .01515 .00330];
+
+
 %temperature and pressure at standard condition
 param.sc.Temp = (60+459.67)*Rankine;
 param.sc.p = 14.7*psia;
