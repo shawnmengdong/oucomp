@@ -33,6 +33,7 @@ s.grad = @(x) C*x;  %map from cell to face
 s.div = @(x) -C'*x; %map from face to cell
 %----------------------------------------------------
 s.avg = @(x) compute_average(x,G);
+s.faceConcentrations = @(flag,conc_c)faceConcentrations(flag, conc_c, N, intInx,nf, nc);
 
 end
 
@@ -40,7 +41,7 @@ end
 function average= compute_average(x,G)
 cellno = gridCellNo(G);  %cell number for each repeated face index, mapping from half face to cell
 cf = G.cells.faces(:,1); %faces index for each cell, unrepeated
-nf_repeat = length(cellno); %number of cell with repeated count
+nf_repeat = length(cellno); %number of faces with repeated count
 nf = G.faces.num; %number of cell, unrepeated
 prop_repeat = zeros(nf_repeat,1);   
 
@@ -50,4 +51,13 @@ end
 accumcount = accumarray(cf,1);%get occurrence of all faces,accumulate the same face
 average = accumarray(cf, prop_repeat, [nf, 1])./accumcount; %calculate the average
 
+end
+
+function conc_f = faceConcentrations(flag, conc_c, N, intInx,nf, nc)
+   index        = (1:nf)';
+   upCell       = N(:, 1);
+   upCell(flag) = N(flag, 2);
+   % On the interior cell we use upwind
+   M = sparse(index(intInx), upCell(intInx), 1, nf, nc);
+   conc_f = M*conc_c;
 end
