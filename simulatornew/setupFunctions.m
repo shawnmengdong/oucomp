@@ -11,7 +11,7 @@ nf = G.faces.num;
 
 %---PoreVolume function--
 pv_r = poreVolume(G, rock);
-s.pv = @(p) pv_r .* exp(rock.cr * (p - rock.p_r));
+s.pv = @(p) pv_r .* exp(rock.cr * (p - rock.pr));
 
 %--half,and full transmissibilities---
 hT = computeTrans(G, rock); %half transmissibilities

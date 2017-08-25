@@ -31,7 +31,7 @@ param.sep = sep;
 %Time step
 param.dt = 36.5*day;             % Time step
 param.total_time = 3650*day;  % Total time
-
+param.g = 9.8;
 
 
 end

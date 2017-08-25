@@ -141,7 +141,8 @@ fluid.w.Bw = 1;  %formation volume factor at reference pressure
 fluid.w.cw = 0.000003/psia; %water compressibility
 fluid.w.mu = 0.31*centi*poise; %water viscosity at reference pressure
 fluid.w.rhosc = 63*pound/(ft^3); %water density at standard condition
-
+fluid.w.MW = 18/1000;  %molecular weight in kg/mol
+fluid.w.epw = fluid.w.rhosc/fluid.w.MW;
 
 
 
@@ -159,7 +160,9 @@ fluid.thermo_opt.trivial_eps = 1e-3;     %trivial shift for bisection algorithm
 fluid.thermo_opt.RRiteration = 200;   %maximum number of Rachford Rice iteration using Newton's method
 fluid.thermo_opt.max_outer_loop = 1000;   %max number of fugacity updates
 
-
-
+%maximum number of phases (except water)
+fluid.nPhase_max=2;
+fluid.muo = 1e-3;  % Liquid
+fluid.mug = 1e-5;  % Gas
 
 end
